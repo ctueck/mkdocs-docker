@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+  site: {}
+
+services:
+
+  builder:
+    build: builder/
+    environment:
+      - GITHUB_SOURCE
+      - HOSTNAME=${HOSTNAME:-localhost}
+    volumes:
+      - site:/mkdocs/site
+      - ${LOCAL_SOURCE:-./source}:/mkdocs/source:ro
+
+  server:
+    image: nginx
+    depends_on:
+      - builder
+    ports:
+      - "${PORT:-8080}:80"
+    environment:
+      - HOSTNAME=${HOSTNAME:-localhost}
+    volumes:
+      - ./nginx.conf:/etc/nginx/templates/default.conf.template:ro
+      - site:/usr/share/nginx/html:ro
+
