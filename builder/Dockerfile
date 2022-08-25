@@ -7,17 +7,17 @@ RUN pip install --upgrade pip
 
 WORKDIR /mkdocs
 
+RUN apt-get update; \
+    apt-get install -y git; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 ADD requirements.txt /mkdocs/
 
 RUN pip install -r requirements.txt
 
 RUN mkdir -p /mkdocs/site
 RUN mkdir -p /mkdocs/source
-
-RUN apt-get update; \
-    apt-get install -y git; \
-    apt-get clean; \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD docker-entrypoint.sh /
 
