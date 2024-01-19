@@ -21,6 +21,12 @@ else
 
         git clone "$GITHUB_SOURCE" /mkdocs/source-remote
 
+        if [ -n "$GITHUB_CHECKOUT" ]; then
+
+            ( cd /mkdocs/source-remote && git checkout "$GITHUB_CHECKOUT" )
+
+        fi
+
     else
 
         echo "Local source does not contain mkdocs.(yml|yaml), and GITHUB_SOURCE not provided."

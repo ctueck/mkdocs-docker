@@ -9,6 +9,7 @@ services:
     build: builder/
     environment:
       - GITHUB_SOURCE
+      - GITHUB_CHECKOUT
       - HOSTNAME=${HOSTNAME:-localhost}
     volumes:
       - site:/mkdocs/site
